@@ -14,25 +14,26 @@ function showView() {
   autofocus
   >
 
-  <button onclick="pushIntoArray(), showView(), clearInput(), focusInput();">Legg til</button>
+  <button onclick="pushIntoArray(), focusInput();">Legg til</button>
   <div>${content}</div> 
   `;
 
   for (let i = 0; i < produkter.length; i++) {
     html += /*html*/ `
-    <li id="liste" onclick="setStrike(${i})">`;
+    <li id="liste">`;
     if (produkter[i].isStrike == true) {
       html += /*html*/ `
-    <span style="text-decoration: line-through;">${produkter[i].name}</span> 
+    <span onclick="setStrike(${i})" style="text-decoration: line-through;">${produkter[i].name}</span> 
     `;
     } else {
       html += /*html*/ `
-    ${produkter[i].name}
+      <span onclick="setStrike(${i})">${produkter[i].name}</span> 
     `;
     }
     html += /*html*/ `
-    <button onclick="produkter.splice(${i}, 1); showView()">Slett</button>
-    </li>`;
+    <button onclick="deleteItem(${i})">Slett</button>
+    </li>
+    `;
   }
 
   appDiv.innerHTML = html;
@@ -40,20 +41,20 @@ function showView() {
 
 showView();
 
-function clearInput() {
-  document.getElementById('inputFelt').value = '';
+function deleteItem(index) {
+  produkter.splice(index, 1);
+  showView();
 }
 
 function pushIntoArray() {
   let produkt = {};
   produkt.name = inputFelt;
-  produkt.isStrike = false;
 
-  if (produkt.name == '') {
-    null;
-  } else {
-    produkter.push(produkt);
-  }
+  if (produkt.name == '') return;
+  else produkter.push(produkt);
+
+  inputFelt = '';
+  showView();
 }
 
 function focusInput() {
