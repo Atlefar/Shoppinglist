@@ -2,6 +2,7 @@ const appDiv = document.getElementById('app');
 let content = '';
 let produkter = [];
 let inputFelt = '';
+let antall = '';
 
 function showView() {
   let html = /*html*/ `
@@ -14,6 +15,13 @@ function showView() {
   autofocus
   >
 
+  <input 
+  type="number" 
+  id="antall" 
+  placeholder="Antall" 
+  oninput="antall = this.value"
+  >
+
   <button onclick="pushIntoArray(), focusInput();">Legg til</button>
   <div>${content}</div> 
   `;
@@ -23,11 +31,11 @@ function showView() {
     <li id="liste">`;
     if (produkter[i].isStrike == true) {
       html += /*html*/ `
-    <span onclick="setStrike(${i})" style="text-decoration: line-through;">${produkter[i].name}</span> 
+    <span onclick="setStrike(${i})" style="text-decoration: line-through;">${produkter[i].antall} ${produkter[i].name}</span> 
     `;
     } else {
       html += /*html*/ `
-      <span onclick="setStrike(${i})">${produkter[i].name}</span> 
+      <span onclick="setStrike(${i})">${produkter[i].antall} ${produkter[i].name}</span> 
     `;
     }
     html += /*html*/ `
@@ -49,10 +57,9 @@ function deleteItem(index) {
 function pushIntoArray() {
   let produkt = {};
   produkt.name = inputFelt;
-
+  produkt.antall = antall;
   if (produkt.name == '') return;
   else produkter.push(produkt);
-
   inputFelt = '';
   showView();
 }
