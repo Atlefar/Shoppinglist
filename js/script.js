@@ -1,11 +1,11 @@
 const appDiv = document.getElementById('app');
-let content = '';
 let produkter = [];
 let inputFelt = '';
 let antall = '';
 
 function showView() {
   let html = /*html*/ `
+  <div class="inputArea">
   <input 
   type="text" 
   placeholder="Produkt" 
@@ -23,12 +23,14 @@ function showView() {
   >
 
   <button onclick="pushIntoArray(), focusInput();">Legg til</button>
-  <div>${content}</div> 
+  </div>
   `;
 
   for (let i = 0; i < produkter.length; i++) {
     html += /*html*/ `
-    <li id="liste">`;
+    <li id="liste">
+    `;
+
     if (produkter[i].isStrike == true) {
       html += /*html*/ `
     <span onclick="setStrike(${i})" style="text-decoration: line-through;">${produkter[i].antall} ${produkter[i].name}</span> 
