@@ -61,6 +61,7 @@ function pushIntoArray() {
   if (produkt.name == '') return;
   else produkter.push(produkt);
   inputFelt = '';
+  antall = '';
   showView();
 }
 
